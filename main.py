@@ -2,7 +2,7 @@ import numpy
 import wave
 from struct import unpack
 
-data = wave.open("data_low.wav", 'r')
+data = wave.open("sampleset/data_low.wav", 'r')
 
 print(data.getsampwidth())
 print(data.getframerate())
@@ -22,8 +22,9 @@ for i in range(100):
 print(len(frames))
 for i, frame in enumerate(frames):
   val = unpack("<b", frame)[0]
-  for y in range(0, val, 1 if val > 0 else -1):
-    mylist[toArrayIndex(i, y + 128)] = 255
+  mylist[toArrayIndex(i, val)] = 255
+#  for y in range(0, val, 1 if val > 0 else -1):
+#   mylist[toArrayIndex(i, y + 128)] = 255
 
 img.putdata(mylist)
 img.save("image.jpg")
