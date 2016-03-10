@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 import wave
 from struct import unpack
 
@@ -35,3 +35,19 @@ def read_url(url):
 
 	return data
 
+def fft(url):
+	import matplotlib
+	matplotlib.use('Agg')
+	
+	import matplotlib.pyplot as plt
+	
+	y = np.fromfile(open(url), np.int8)[9000:10000]
+	x = np.arange(9000, 10000, 1)
+	
+	normalize = np.vectorize(lambda x: x / 128.0)
+	y = normalize(y)
+	
+	sp = np.fft.fft(y)
+	freq = np.fft.fftfreq(y.shape[-1])
+	plt.plot(freq, sp.real)
+	plt.savefig('image.jpg')

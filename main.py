@@ -9,7 +9,8 @@ from include import sound
 
 def main(url, o):
 	data = sound.read_url("sampleset/data_low.wav")
-	sound.save_waveform(data)
+	# sound.save_waveform(data)
+	sound.fft(url)
 
 if __name__ == '__main__':
 	main()	
